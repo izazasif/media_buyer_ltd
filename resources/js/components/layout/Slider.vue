@@ -16,10 +16,13 @@
           </span>
         </div>
 
-        <!-- Explore Button -->
-        <button class="explore-button animate-button mt-4">
-          Book Free Consultation
-        </button>
+        <!-- Buttons Section -->
+        <div class="buttons-container mt-4">
+          <button class="explore-button animate-button" @click="contactUs">Contact us</button>
+          <button class="explore-button animate-button mt-2 md:ml-2" @click="onShowCat">Who we are</button>
+          <button class="explore-button animate-button mt-2 md:ml-2"  @click="onShow">Mission</button>
+          <button class="explore-button animate-button mt-2 md:ml-2" @click="contactUs">Vision</button>
+        </div>
 
         <!-- Additional Image on Right Side -->
         <img :src="additionalImage" class="additional-image" loading="lazy" />
@@ -30,48 +33,57 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
+import { useRouter } from "vue-router";
 
-// Words for the animation
+const router = useRouter();
+
 const animatedText = ref(["Media", "Buyer", "Marketing", "Agency"]);
 const wordIndex = ref(0);
-const fadeOut = ref(false); // To control the fade-out state
+const fadeOut = ref(false);
 
-// Timing settings
-const fadeDuration = 1000; // 1 second for fade-out
-const wordDisplayDuration = 1000; // 1 second between each word appearance
-const allWordsVisibleDuration = 3000; // Wait 3 seconds after all words are visible
+const fadeDuration = 1000;
+const wordDisplayDuration = 1000;
+const allWordsVisibleDuration = 3000;
 
 const showNextWord = () => {
-  // If not all words are shown yet
   if (wordIndex.value < animatedText.value.length - 1) {
     wordIndex.value++;
   } else {
-    // After all words are shown, wait and then fade out
     setTimeout(() => {
       fadeOut.value = true;
-
-      // After fading out, reset the animation
       setTimeout(() => {
         fadeOut.value = false;
-        wordIndex.value = 0; // Reset to first word
-      }, fadeDuration); // Wait for the fade-out to finish
-    }, allWordsVisibleDuration); // Wait after all words are visible
+        wordIndex.value = 0;
+      }, fadeDuration);
+    }, allWordsVisibleDuration);
   }
 };
 
 onMounted(() => {
-  // Show each word one by one
   const wordInterval = setInterval(showNextWord, wordDisplayDuration);
 
   onUnmounted(() => {
     clearInterval(wordInterval);
   });
 });
+
+const contactUs = () => {
+  router.push('/contactus');
+};
+const onShow =  () => {
+  router.push('/mission');
+}
+const onShowCat = () => {
+  router.push('/whoweare');
+}
+const onShowvision = () => {
+  router.push('/vision');
+}
 </script>
 
 <style scoped>
 .h-screen {
-  height: 80vh; /* Full-screen height for the image */
+  height: 80vh;
 }
 
 .hero-background {
@@ -79,12 +91,12 @@ onMounted(() => {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  width: 100%; 
-  height: 100%; 
+  width: 100%;
+  height: 100%;
 }
 
 .text-container {
-  font-family: 'GramophoneShadedNF', serif; /* Custom font */
+  font-family: 'GramophoneShadedNF', serif;
   text-transform: uppercase;
   margin-top: -10px;
   transition: opacity 1s ease-in-out;
@@ -93,19 +105,26 @@ onMounted(() => {
 span {
   font-size: 3rem;
   font-weight: 700;
-  color: #3a7ca5; /* Primary color */
+  color: #3a7ca5;
   opacity: 0;
-  transform: translateY(50px); /* Start from below */
+  transform: translateY(50px);
   transition: opacity 1s ease-in-out, transform 1s ease-in-out;
 }
 
 span.animate-word {
   opacity: 1;
-  transform: translateY(0); /* Move to original position */
+  transform: translateY(0);
 }
 
 .text-container.fade-out {
   opacity: 0;
+}
+
+.buttons-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
 }
 
 .explore-button {
@@ -122,61 +141,62 @@ span.animate-word {
 
 .explore-button:hover {
   background-color: rgba(58, 124, 165, 1);
-  transform: scale(1.05); /* Slight scale-up on hover */
+  transform: scale(1.05);
 }
 
 .additional-image {
   position: absolute;
-  right: 367px; /* Adjust this value to move the image further to the right */
-  bottom: 186px; /* Adjust this value to position the image vertically */
-  width: 455px; /* Set the desired width for the image */
+  right: 367px;
+  bottom: 186px;
+  width: 455px;
   height: auto;
-  z-index: 10; /* Ensure it appears above other content */
+  z-index: 10;
 }
 
-/* Responsive design for smaller screens */
 @media (max-width: 768px) {
   .h-screen {
-    height: 70vh; /* Reduce the height for tablets */
+    height: 70vh;
   }
-
   .span {
-    font-size: 2rem; /* Reduce the font size of the animated words */
+    font-size: 2rem;
   }
-
   .additional-image {
-    width: 300px; /* Reduce the image size */
+    width: 300px;
     right: 150px;
     bottom: 100px;
   }
-
   .explore-button {
-    font-size: 1.2rem; /* Reduce button size for better fit */
+    font-size: 1.2rem;
+    padding: 8px 16px;
+  }
+  .buttons-container {
+    gap: 0.3rem;
   }
 }
 
 @media (max-width: 480px) {
   .h-screen {
-    height: 60vh; /* Reduce the height for mobile devices */
+    height: 60vh;
   }
-
   span {
-    font-size: 1.5rem; /* Further reduce the font size for small screens */
+    font-size: 1.5rem;
   }
-
   .text-container {
-    margin-top: -20px; /* Adjust text positioning */
+    margin-top: -20px;
   }
-
   .additional-image {
-    width: 200px; /* Further reduce image size */
+    width: 200px;
     right: 50px;
     bottom: 50px;
   }
-
   .explore-button {
-    font-size: 1rem; /* Smaller button for mobile */
-    padding: 8px 16px; /* Adjust padding */
+    font-size: 1rem;
+    padding: 6px 12px;
+    margin-top: 5px;
+  }
+  .buttons-container {
+    flex-direction: column;
+    align-items: center;
   }
 }
 </style>

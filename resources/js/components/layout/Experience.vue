@@ -1,144 +1,116 @@
 <template>
-    <div class="hero-container">
-      <!-- Text Overlay -->
+  <div class="hero-grid">
+    <div
+      v-for="(image, index) in images"
+      :key="index"
+      class="hero-container"
+      :style="{ backgroundImage: `url(${image})` }"
+    >
       <div class="text-overlay">
-        <h1 class="title">Our Experience</h1>
+        <h1 class="title">Our Experience {{ index + 1 }}</h1>
       </div>
+      <!-- Conditionally render border only for the first container -->
+      <div v-if="index === 0" class="border"></div>
     </div>
-  </template>
-  
-  <script setup>
-  // No additional logic needed for now
-  </script>
-  
-  <style scoped>
-  .hero-container {
-    position: relative;
-    width: 100%;
-    height: 100vh; /* Full screen height */
-    background-image: url('/image/exp1.png'); /* Adjust the path accordingly */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  </div>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+
+// List of images to show in each hero container
+const images = ref([
+  '/image/exp1.png', // Adjust these paths accordingly
+  '/image/exp2.png',
+]);
+</script>
+
+<style scoped>
+.hero-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columns for desktop */
+  gap: 0; /* No gap between grid items */
+  width: 100%;
+  padding: 10px; /* White space around the grid container */
+  background-color: white;
+}
+
+.hero-container {
+  position: relative;
+  width: 100%;
+  height: 300px; /* Set desired image height */
+  background-size: cover; /* Cover to fit entire container */
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 10px; /* White space around each container */
+}
+
+.border {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 2px;
+  background-color: black; /* Black border */
+}
+
+.text-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 80%;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.7); /* Light background for readability */
+}
+
+.title {
+  font-size: 3rem;
+  color: #3a7ca5;
+  animation: fadeInDown 2s ease-out;
+  font-family: 'GramophoneShadedNF', serif;
+  margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: 1fr; /* Switch to 1 column layout on tablets and below */
   }
-  
-  .text-overlay {
-    position: absolute;
-    top: 16%; /* Adjusted for better responsiveness */
-    left: 30%;
-    transform: translateX(-50%);
-    max-width: 80%; /* Set to a percentage for responsiveness */
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-  }
-  
+
   .title {
-    font-size: 3.5rem;
-    margin-bottom: 20px;
-    animation: fadeInDown 2s ease-out; /* Add fade-in animation to the title */
-    margin-top: 0px;
-    font-family: 'GramophoneShadedNF', serif;
-    color: #3a7ca5;
+    font-size: 2.5rem;
   }
-  
-  .animated-text {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    width: 352px;
-    font-family: 'GramophoneShadedNF', serif;
-    color: #3a7ca5;
+
+  /* Hide border on smaller screens */
+  .border {
+    display: none;
   }
-  
-  .contact-info {
-    color: #3a7ca5;
-    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .hero-container {
+    height: 250px; /* Adjust height for smaller screens */
   }
-  
-  .contact-info:hover {
-    text-decoration: underline;
+
+  .title {
+    font-size: 2rem;
   }
-  
-  /* Define keyframes for text animations */
-  @keyframes fadeInUp {
-    0% {
-      opacity: 0;
-      transform: translateY(50px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
+}
+
+@media (max-width: 480px) {
+  .hero-container {
+    height: 200px; /* Adjust height for mobile screens */
   }
-  
-  @keyframes fadeInDown {
-    0% {
-      opacity: 0;
-      transform: translateY(-50px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
+
+  .title {
+    font-size: 1.5rem;
   }
-  
-  /* Responsive design for smaller screens */
-  @media (max-width: 1024px) {
-    .title {
-      font-size: 2.5rem; /* Scale down title size for large tablets */
-    }
-  
-    .animated-text {
-      font-size: 1rem; /* Adjust font size for readability */
-    }
+
+  .text-overlay {
+    padding: 5px; /* Reduce padding for text overlay on mobile */
   }
-  
-  @media (max-width: 768px) {
-    .hero-container {
-      height: 80vh; /* Reduce height on tablets */
-    }
-  
-    .text-overlay {
-      top: 20%; /* Adjust the top position on smaller devices */
-      left: 50%; /* Center text on smaller screens */
-      transform: translateX(-50%);
-      max-width: 90%;
-    }
-  
-    .title {
-      font-size: 2rem; /* Scale down title size */
-      margin-top: 0; /* Adjust margin */
-    }
-  
-    .animated-text {
-      font-size: 0.95rem; /* Adjust font size for readability */
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .hero-container {
-      height: 60vh; /* Further reduce height for very small screens */
-      padding: 0 10px; /* Add padding to avoid text touching the sides */
-    }
-  
-    .text-overlay {
-      top: 10%; /* Adjust position for mobile devices */
-      left: 50%; /* Center text */
-      transform: translateX(-50%);
-      max-width: 100%;
-    }
-  
-    .title {
-      font-size: 1.5rem; /* Reduce title size for very small screens */
-    }
-  
-    .animated-text {
-      font-size: 0.85rem; /* Adjust text size */
-      width: auto; /* Allow text to take up available width */
-    }
-  }
-  </style>
-  
+}
+</style>

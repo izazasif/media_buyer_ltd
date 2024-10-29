@@ -3,9 +3,10 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{{ !empty($meta_title) ? $meta_title : 'InsightHub' }}</title>
+        <title> Media Buyer Marketing Agency </title>
         <meta name="description" content="{{ !empty($meta_description) ? $meta_description : 'Default Description' }}">
         <meta name="keywords" content="{{ !empty($meta_keywords) ? $meta_keywords : 'Default Keywords' }}">
+        <link rel="icon" href="{{ asset('image/newlogo.png') }}" type="image/png">
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />

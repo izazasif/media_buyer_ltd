@@ -144,6 +144,7 @@ const onClient = (slug) => {
     gap: 10px; /* Reduce gap between images */
     animation-duration: 40s;
     height: 156px;
+    margin-top: -20px;
   }
 
   .client-logo {

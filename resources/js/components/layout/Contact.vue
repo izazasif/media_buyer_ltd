@@ -4,11 +4,22 @@
     <div class="hero-container">
       <!-- Left Side: Contact Information -->
       <div class="contact-info-container">
-        <h1 class="title">Contact</h1>
+        <h1 class="title">Contact us</h1>
         <p class="animated-text">
-          Phone: <a href="tel:+1234567890" class="contact-info">+1 234 567 890</a><br>
-          Web: <a href="www.example.com" class="contact-info">www.example.com</a><br>
-          Email: <a href="mailto:someone@example.com" class="contact-info">someone@example.com</a>
+          <ul>
+            <li class="mb-1 flex items-center justify-start">
+              <a href="https://wa.me/1234567890" target="_blank" class="mr-2 text-green-500">
+                <i class="fab fa-whatsapp text-2xl"></i>
+              </a>
+              +1 234 567 890
+            </li>
+            <li class="mb-1 flex items-center justify-center">
+              <a href="mailto:someone@example.com" class="mr-2 text-blue-500">
+                <i class="fas fa-envelope text-2xl"></i>
+              </a>
+              <span>someone@example.com</span>
+            </li>
+          </ul>
         </p>
       </div>
 
@@ -25,8 +36,19 @@
             <input type="email" v-model="email" id="email" class="form-control" required />
           </div>
           <div class="form-group">
+            <label for="country">Country</label>
+            <select v-model="selectedCountry" @change="updateDialCode" class="form-control">
+              <option v-for="country in countries" :key="country.name" :value="country">
+                {{ country.name }}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
             <label for="phone">Phone Number</label>
-            <input type="text" v-model="phone" id="phone" class="form-control" required />
+            <div class="flex items-center">
+              <span class="dial-code">{{ selectedCountry?.dialCode || '' }}</span>
+              <input type="text" v-model="phone" id="phone" class="form-control" required />
+            </div>
           </div>
           <div class="form-group">
             <label for="body">Message</label>
@@ -45,7 +67,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import Header from './Header.vue';
 import Footer from './Footer.vue';
@@ -55,6 +77,8 @@ const email = ref('');
 const phone = ref('');
 const body = ref('');
 const loading = ref(false);
+const countries = ref([]);
+const selectedCountry = ref({ name: '', dialCode: '' });
 
 const sendEmail = async () => {
   loading.value = true;
@@ -65,6 +89,7 @@ const sendEmail = async () => {
       email: email.value,
       phone: phone.value,
       body: body.value,
+      country: selectedCountry.value.name,  // Include country in the payload
     });
 
     alert('Email sent successfully!');
@@ -72,6 +97,7 @@ const sendEmail = async () => {
     email.value = '';
     phone.value = '';
     body.value = '';
+    selectedCountry.value = { name: '', dialCode: '' }; // Reset country selection
   } catch (error) {
     console.error(error);
     alert('Failed to send email.');
@@ -79,7 +105,22 @@ const sendEmail = async () => {
     loading.value = false;
   }
 };
+
+const fetchCountries = async () => {
+  try {
+    const response = await axios.get('https://restcountries.com/v3.1/all');
+    countries.value = response.data.map((country) => ({
+      name: country.name.common,
+      dialCode: country.idd.root ? country.idd.root + (country.idd.suffixes ? country.idd.suffixes[0] : '') : ''
+    }));
+  } catch (error) {
+    console.error('Failed to fetch countries:', error);
+  }
+};
+
+onMounted(fetchCountries);
 </script>
+
 
 
 <style scoped>
@@ -192,5 +233,18 @@ const sendEmail = async () => {
   .animated-text {
     font-size: 1rem;
   }
+}
+.dial-code {
+  margin-right: 10px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
 }
 </style>

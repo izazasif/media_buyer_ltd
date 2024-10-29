@@ -4,8 +4,7 @@
             <Slider />
             <Client />
             <Experience />
-            <Experience2/>
-            <Contactone />
+            <!-- <Experience2/> -->
         </div>
     </div>
 </template>
@@ -13,7 +12,6 @@
   <script setup>
    import Slider from  "./Slider.vue"
    import Client from "./Client.vue";
-   import Contactone from "./Contactone.vue";
    import Experience from "./Experience.vue";
    import Experience2 from "./Experience2.vue";
   </script>

@@ -14,16 +14,17 @@ class ContactMail extends Mailable
     public $name;
     public $email;
     public $phone;
-    public $subject;
+    public $subject = "Contact Email"; 
     public $body;
+    public $country;
 
-    public function __construct($name, $email, $phone, $subject, $body)
+    public function __construct($name, $email, $phone,$body,$country)
     {
         $this->name = $name;
         $this->email = $email;
         $this->phone = $phone;
-        $this->subject = "Contact Email";
         $this->body = $body;
+        $this->country = $country;
     }
 
     public function build()
@@ -33,6 +34,7 @@ class ContactMail extends Mailable
                         <p><strong>Name:</strong> {$this->name}</p>
                         <p><strong>Email:</strong> {$this->email}</p>
                         <p><strong>Phone:</strong> {$this->phone}</p>
+                        <p><strong>Country:</strong> {$this->country}</p>
                         <p><strong>Message:</strong><br>{$this->body}</p>
                     ");
     }

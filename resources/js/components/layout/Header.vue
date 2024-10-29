@@ -26,10 +26,10 @@
             </div>
           </div>
           <a href="#" class="hover:text-gray-400 transition duration-300 font-bold text-l" style="color: rgb(245 247 251);font-family: 'GramophoneShadedNF', serif;" @click="onClient(56)">Clients </a>
-          <a href="#" class="hover:text-gray-400 font-bold transition duration-300 font-bold text-l" style="color: rgb(245 247 251);font-family: 'GramophoneShadedNF', serif;" @click="onExp">Portfolio</a>
+          <!-- <a href="#" class="hover:text-gray-400 font-bold transition duration-300 font-bold text-l" style="color: rgb(245 247 251);font-family: 'GramophoneShadedNF', serif;" @click="onExp">Portfolio</a> -->
 
           <div @mouseover="showCategoryMenu2 = true" @mouseleave="showCategoryMenu2 = false" class="relative">
-            <a href="#" class="hover:text-gray-400 font-bold transition duration-300 font-bold text-l" style="color: rgb(245 247 251);font-family: 'GramophoneShadedNF', serif;">Services
+            <a href="#" class="hover:text-gray-400 font-bold transition duration-300 font-bold text-l" style="color: rgb(245 247 251);font-family: 'GramophoneShadedNF', serif;">Our Services
               <i class="fa fa-caret-down"></i>
             </a>
             <div v-if="showCategoryMenu2" class="absolute top-full left-0 w-100 bg-white shadow-lg p-4 z-40" style="width: 175px;background-color: rgb(20, 20, 36);">
@@ -63,9 +63,7 @@
     <!-- Mobile Menu Button -->
     <div class="md:hidden lg:hidden flex items-center">
         <!-- Mobile Search Button -->
-        <button @click="toggleSearch" class="text-gray focus:outline-none ml-10">
-          <i class="fas fa-search"></i>
-        </button>
+        
         <button @click="toggleMenu" class="text-gray focus:outline-none ml-4">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -83,7 +81,7 @@
 
     <!-- Mobile Menu -->
     <div v-if="isMenuOpen" class="lg:hidden sm:hidden bg-black text-white" style="background-color: rgb(20, 20, 36);">
-      <a href="#" class="block px-4 py-2 hover:bg-gray-800 font-serif">Home</a>
+      <a href="#" class="block px-4 py-2 hover:bg-gray-800 font-serif" @click="onHome">Home</a>
         <div @click="toggleCategoryMenu" class="block px-4 py-2 hover:bg-gray-800 font-serif">About 
           <i class="fa fa-caret-down"></i>
         </div>
@@ -93,14 +91,14 @@
               <div class="flex flex-col space-y-2">
                 <a href="#" class="hover:text-gray-400 transition duration-300 font-serif" style="width: 100px;color: rgb(245 247 251);font-family: 'GramophoneShadedNF', serif;" @click="onShowCat">Who we are</a>
                 <a href="#" class="hover:text-gray-400 transition duration-300 font-serif" style="color: rgb(245 247 251);font-family: 'GramophoneShadedNF', serif;" @click="onShow">Mission</a>
-                <a href="#" class="hover:text-gray-400 transition duration-300 font-serif" style="color: rgb(245 247 251);font-family: 'GramophoneShadedNF', serif;" @click="onShowvision">Vision</a>
+                <a href="#" class="hover:text-gray-400 transition duration-300 font-serif" style="color: rgb(245 247 251);font-family: 'GramophoneShadedNF', serif;" @click="contactUs">Vision</a>
               </div>
             </div>
           </div>
         </transition>
       <a href="#" class="block px-4 py-2 hover:bg-gray-800 font-serif" style="color: rgb(245 247 251);font-family: 'GramophoneShadedNF', serif;" @click="onClient(56)">Client</a>
-      <a href="#" class="block px-4 py-2 hover:bg-gray-800 font-serif" style="color: rgb(245 247 251);font-family: 'GramophoneShadedNF', serif;" @click="onExp">Portfolio</a>
-       <div @click="toggleCategoryMenu2" class="block px-4 py-2 hover:bg-gray-800 font-serif">Services
+      <!-- <a href="#" class="block px-4 py-2 hover:bg-gray-800 font-serif" style="color: rgb(245 247 251);font-family: 'GramophoneShadedNF', serif;" @click="onExp">Portfolio</a> -->
+       <div @click="toggleCategoryMenu2" class="block px-4 py-2 hover:bg-gray-800 font-serif"> Our Services
         <i class="fa fa-caret-down"></i>
         </div>
         <transition name="fade">

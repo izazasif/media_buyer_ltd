@@ -4,7 +4,7 @@
    <div class="hero-container">
      <!-- Text Overlay -->
      <div class="text-overlay">
-       <h1 class="title">Our Experience</h1> 
+       <!-- <h1 class="title">Our Experience</h1>  -->
    </div>
    </div>
    
